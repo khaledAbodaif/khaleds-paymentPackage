@@ -1,0 +1,5 @@
+http://rizqi.id/
+
+https://devdojo.com/devdojo/how-to-create-a-laravel-package
+
+https://github.com/alexeymezenin/laravel-best-practices
