@@ -5,10 +5,10 @@ trait HttpHelper
 {
 
       private $response=['status'=>true,'message'=>'','data'=>[]];
-      
+
     public function post($uri ,$data){
-          
-      $httpClient = new \GuzzleHttp\Client(); 
+
+      $httpClient = new \GuzzleHttp\Client();
 
       try{
             $response = $httpClient->request('POST', $uri, [
@@ -17,17 +17,18 @@ trait HttpHelper
             ],
             'body' => json_encode($data)
             ]);
-      
+
             $this->response['data']=$response->getBody()->getContents();
       }
       catch(\Exception $e){
-            $this->returnedMessage['status']=false;
-            $this->returnedMessage['message']=$e->getMessage();
+
+            $this->response['status']=false;
+            $this->response['message']=$e->getMessage();
 
       }
       return $this->response;
-      
-      
+
+
     }
 
 }

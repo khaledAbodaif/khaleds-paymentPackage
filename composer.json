@@ -1,6 +1,6 @@
 {
     "name": "khaleds/payment",
-    "description": "payment system plugin",
+    "description": "payment system for vilt admin",
     "type": "composer-plugin",
     "license": "MIT",
     "autoload": {
@@ -15,12 +15,12 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
     "extra": {
         "laravel": {
             "providers": [
-                "khaleds\\payments\\PaymentServiceProvider"
+                "khaleds\\payments\\PaymentProvider"
             ]
         }
-        }
+        },
+    "require": {}
 }
