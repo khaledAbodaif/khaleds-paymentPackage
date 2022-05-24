@@ -1,0 +1,26 @@
+{
+    "name": "khaleds/payment",
+    "description": "payment system plugin",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Khaleds\\Payment\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "khaledAbodaif",
+            "email": "khaled.abodaif@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "khaleds\\payments\\PaymentServiceProvider"
+            ]
+        }
+        }
+}
