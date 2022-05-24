@@ -5,7 +5,7 @@ interface IPaymentInterface
 {
 
     public function init();
-    public function pay();
+    public function pay($attributes);
     public function callBack();
     public function saveToLogs();
 
