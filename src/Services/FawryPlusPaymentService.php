@@ -14,17 +14,12 @@ class FawryPlusPaymentService implements IPaymentInterface
     private $secretKey;
     private $data=[];
 
-    public function __construct()
+    public function __construct($merchantCode,$uri)
     {
-        $this->data['merchantCode']=config('khaledsPayment.merchant_code');
-//        $this->data['merchantRefNum']=rand(1111,9999);
-        $this->data['merchantRefNum']='1234';
 
-        $this->uri=(config('khaledsPayment.debug'))?
-            config('khaledsPayment.testing_uri'):
-            config('khaledsPayment.pr_uri');
+        $this->data['merchantCode']=$merchantCode;
+        $this->uri=$uri;
 
-        $this->secretKey=config('khaledsPayment.security_key');
     }
 
 
@@ -61,19 +56,19 @@ class FawryPlusPaymentService implements IPaymentInterface
 //        $this->data['signature']="44cfdabdb26cbb7db6d85282d4afca8ad6266429b53c9387aa99572be6da8a89";
 //        $this->data['signature']= "2ca4c078ab0d4c50ba90e31b3b0339d4d4ae5b32f97092dd9e9c07888c7eef36";
 //        $this->data['returnUrl']=$attributes['returnedUrl'];
-        $khaled=[
-            "merchantCode"=>$this->data['merchantCode'],
-            "merchantRefNum"=>1589,
-            "returnUrl"=>"https://khaled.com",
-            "chargeItems"=>[
-                [
-                    'itemId'=>15,"quantity"=>9,"price"=>round(150,2)
-                ]
-                ],
-        ];
-        $khaled["signature"]=hash('sha256',$khaled['merchantCode'].$khaled["merchantRefNum"].$khaled["returnUrl"]
-        .$khaled["chargeItems"][0]["itemId"].$khaled["chargeItems"][0]["quantity"].$khaled["chargeItems"][0]["price"].$this->secretKey
-        );
+//        $khaled=[
+//            "merchantCode"=>$this->data['merchantCode'],
+//            "merchantRefNum"=>1589,
+//            "returnUrl"=>"https://khaled.com",
+//            "chargeItems"=>[
+//                [
+//                    'itemId'=>15,"quantity"=>9,"price"=>round(150,2)
+//                ]
+//                ],
+//        ];
+//        $khaled["signature"]=hash('sha256',$khaled['merchantCode'].$khaled["merchantRefNum"].$khaled["returnUrl"]
+//        .$khaled["chargeItems"][0]["itemId"].$khaled["chargeItems"][0]["quantity"].$khaled["chargeItems"][0]["price"].$this->secretKey
+//        );
 //        dd($khaled);
 //        dd(['s'=>$this->data,'new-seg'=>hash('sha256',
 //        $this->data['merchantCode'] . $this->data['merchantRefNum']."15".$this->data['returnUrl']
@@ -82,7 +77,7 @@ class FawryPlusPaymentService implements IPaymentInterface
 //            . "8" .
 //            "1" .
 //            "580.55" . "259af31fc2f74453b3a55739b21ae9ef")]);
-        return $this->post($this->uri,$khaled);
+        return $this->post($this->uri,$this->data);
 
     }
 
@@ -104,4 +99,5 @@ class FawryPlusPaymentService implements IPaymentInterface
         // create the scenario
         //should implement other integrations try wallet
     }
+    //https://spatie.be/guidelines/laravel-php
 }

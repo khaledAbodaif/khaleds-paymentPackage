@@ -34,7 +34,7 @@ class PaymentController extends Controller
 
     public function index(Request $request){
 
-//        dd($request->get('items'));
+//        dd($request->get('paymentMethod'));
         try{
         $resualt=$this->payment->get(request()->get('paymentMethod'))
         ->init()

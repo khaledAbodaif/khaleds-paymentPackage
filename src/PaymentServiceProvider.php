@@ -3,6 +3,8 @@
 namespace Khaleds\Payment;
 
 use Illuminate\Support\ServiceProvider;
+use Khaleds\Payment\Factories\PaymentFactory;
+use Khaleds\Payment\Services\FawryPlusPaymentService;
 
 class PaymentServiceProvider extends ServiceProvider
 {
@@ -14,6 +16,8 @@ class PaymentServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->singleton(PaymentFactory::class);
+
     }
 
     /**
@@ -23,6 +27,20 @@ class PaymentServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->make(PaymentFactory::class)
+            ->register("fawry", new FawryPlusPaymentService(
+                config('khaledsPayment.merchant_code'),
+                (config('khaledsPayment.debug'))?
+                    config('khaledsPayment.testing_uri'):
+                    config('khaledsPayment.pr_uri')
+            ))
+        ->register("book", new FawryPlusPaymentService(
+            config('khaledsPayment.merchant_code'),
+            (config('khaledsPayment.debug'))?
+                config('khaledsPayment.testing_uri'):
+                config('khaledsPayment.pr_uri')
+        ))
+        ;
 
        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
 
